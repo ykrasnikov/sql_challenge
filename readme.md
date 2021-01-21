@@ -2,9 +2,10 @@
 
 SQL Homework - Employee Data Base
 
-<img src="images/anaconda.gif" align="left" height="210"/>
-<img src="images/panda.gif" align="right" height="210"/>
-<img src="images/sql.png" align="center" height="210"/>
+<img src="images/anaconda.gif" align="left" width="250"/>
+<img src="images/sql.png" align="center" width="250"/>
+<img src="images/panda.gif" align="right" width="250"/>
+
 
 ## Part 1. Data Engineering
 Based on analysis of  provided 6 CSV files:
