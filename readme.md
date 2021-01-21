@@ -3,11 +3,15 @@
 SQL Homework - Employee Data Base
 
 <img src="images/anaconda.gif" align="left" width="250"/>
-<img src="images/sql.png" align="center" width="250"/>
 <img src="images/panda.gif" align="right" width="250"/>
+<img src="images/sql.png" align="center" width="250"/>
 
+
+
+_______________________
 
 ## Part 1. Data Engineering
+
 Based on analysis of  provided 6 CSV files:
 created database ERD and individual table schemas
 PDF file with tables schemas - [documentation_employee_db](documentation_employee_db.pdf)
