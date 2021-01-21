@@ -2,9 +2,9 @@
 
 SQL Homework - Employee Data Base
 
-<img src="images/anaconda.gif" align="left" width="250"/>
-<img src="images/panda.gif" align="right" width="250"/>
-<img src="images/sql.png" align="center" width="250"/>
+<img src="images/anaconda.gif" align="left" height="200"/>
+<img src="images/panda.gif" align="right" height="200"/>
+<img src="images/sql.png" align="center" height="200"/>
 
 
 
