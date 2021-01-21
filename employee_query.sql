@@ -1,69 +1,11 @@
--- CREATE AND IMPORT  TABLES 
-DROP TABLE IF EXISTS department;
-CREATE TABLE department (
-    dept_no VARCHAR(50) PRIMARY KEY,
-    dept_name VARCHAR   NOT NULL
-);
-
-DROP TABLE IF EXISTS title;
-CREATE TABLE title (
-    title_id VARCHAR PRIMARY KEY,
-    title varchar   NOT NULL
-);
-
-DROP TABLE IF EXISTS employee;
-CREATE TABLE employee (
-    emp_no INT PRIMARY KEY,
-    emp_title_id VARCHAR(50),
-    birth_date DATE   NOT NULL,
-    first_name VARCHAR   NOT NULL,
-    last_name VARCHAR   NOT NULL,
-    sex VARCHAR(50)   NOT NULL,
-    hire_date DATE   NOT NULL,
-    FOREIGN KEY (emp_title_id) REFERENCES title(title_id)
-);
-
-SELECT *
-FROM employee;
-
-DROP TABLE IF EXISTS dept_emp;
-CREATE TABLE dept_emp (
-    emp_no INT,
-	FOREIGN KEY (emp_no) REFERENCES employee(emp_no),
-    dept_no VARCHAR(50),
-	FOREIGN KEY (dept_no) REFERENCES department(dept_no)
-);
-SELECT *
-FROM dept_emp;
-
-DROP TABLE IF EXISTS dept_manager;
-CREATE TABLE dept_manager (
-    dept_no VARCHAR(50),
-    emp_no INT ,
-	PRIMARY KEY (dept_no,emp_no),
-	FOREIGN KEY (dept_no) REFERENCES department(dept_no),
-	FOREIGN KEY (emp_no) REFERENCES employee(emp_no)
-);
-
-SELECT *
-FROM dept_manager;
-
-DROP TABLE IF EXISTS salary;
-CREATE TABLE salary (
-    emp_no INT PRIMARY KEY,
-    salary INT NOT NULL,
-	FOREIGN KEY (emp_no) REFERENCES employee(emp_no)
-);
-SELECT *
-FROM  salary;
-
 
 -- QUERIES
 --1. List the following details of each employee: 
 -- employee number, last name, first name, sex, and salary.
 SELECT e.emp_no,e.last_name, e.first_name,e.sex,s.salary
 FROM employee AS e
-JOIN salary AS s ON e.emp_no=s.emp_no;
+JOIN salary AS s ON e.emp_no=s.emp_no
+ORDER BY s.salary DESC;
 
 --2. List first name, last name, and hire date for employees who were hired in 1986.
 SELECT last_name,first_name,hire_date
@@ -84,11 +26,13 @@ ORDER BY e.emp_no;
 -- employee number, last name, first name, and department name.
 
 -- we will create view , as this type of query appears 2 more times
+DROP VIEW employee_department;
+
 CREATE VIEW employee_department AS
 SELECT e.emp_no,e.last_name, e.first_name,d.dept_name
 FROM employee AS e
 JOIN dept_emp AS de ON e.emp_no=de.emp_no
-JOIN department AS d ON de.dept_no=d.dept_no;
+JOIN department AS d ON de.dept_no=d.dept_no
 ORDER BY e.emp_no;
 
 SELECT *
@@ -123,3 +67,18 @@ SELECT last_name, COUNT(last_name) AS last_name_count
 FROM employee
 GROUP BY last_name
 ORDER BY last_name_count DESC;
+
+--9. Bonus Query
+SELECT t.title, ROUND(AVG(s.salary),2) AS avg_salary
+FROM employee AS e
+JOIN salary AS s ON e.emp_no=s.emp_no
+JOIN title AS t ON e.emp_title_id=t.title_id
+GROUP BY t.title
+ORDER BY avg_salary;
+
+SELECT ROUND(AVG(s.salary),2)
+FROM employee AS e
+JOIN salary AS s ON e.emp_no=s.emp_no
+JOIN title AS t ON e.emp_title_id=t.title_id
+WHERE t.title LIKE 'Senior S%';
+
